@@ -1,12 +1,14 @@
 import './App.css'
+import OtpVerification from './components/OtpVerification.jsx';
 
 function App() {
 
   return (
-    <div>
-
-    </div>
-  )
+    <>
+    
+    <OtpVerification />
+    </>
+  );
 }
 
 export default App
