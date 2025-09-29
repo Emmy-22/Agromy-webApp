@@ -34,7 +34,7 @@ const JoinUS = () => {
             </div>
         </div>
         <div className='image-container'>
-          <img src="src\assets\worker.png" alt="farmer carrying hoe on her shoulder and basket on the other hand" />
+          <img src="src\assets\worker.png" alt="farmer carrying hoe on her shoulder and basket on the other hand" className='flip-horizontal' />
         </div>
     </div>
    
