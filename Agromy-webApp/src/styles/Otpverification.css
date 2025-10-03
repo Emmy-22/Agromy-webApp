@@ -1,0 +1,127 @@
+.otp-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 100vh;
+  gap: 4rem;
+  justify-content: space-between;
+  width: 100%;
+  font-family: 'montserrat', sans-serif;
+  width: 100%;
+}
+.agrimg img{
+  max-width: 600px;
+  height: 100vh; 
+}
+.sect-container{
+  text-align: center;
+
+}
+
+.otp-logo{
+  font-size: 4rem;
+  color: #04b11b;
+  padding: 3rem;
+}
+.verification-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  background-color: #ffffff;
+  padding: 4rem;
+  border-radius: 1rem;
+  width: 100%;
+  box-shadow: 0 7px 10px rgba(48, 46, 46, 0.1);
+}
+.verification-box h2{
+  color: #019214;
+}
+.otp-inputs{
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0 1rem;
+  width: 80%;
+  justify-content: center;
+  
+
+}
+.otp-input{
+  width: 5rem;
+  height: 5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid #ced4da;
+}
+.resend-section button{
+  border: none;
+  color: #019214;
+  background-color: #ffffff;
+}
+.resend-section button:hover{
+  color: #d8bc1f;
+}
+
+@media (max-width: 468px){
+  .otp-container{
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+  .otp-container{
+    background-image: url(../img/workpose.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .otp-logo{
+  font-size: 3rem;
+  color: #04b11b;
+  font-weight: 900;
+}
+  .sect-container{
+  text-align: center;
+  padding: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+  .verification-box{
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+  }
+  .agrimg img{
+    height: 0;
+    width: 0;
+  }
+  .otp-input{
+    width: 2.6rem;
+    height: 2.6rem;
+    text-align: center;
+    font-size: 1.5rem;
+    border: 1px solid #3d3e3f;
+    border-radius: 4px;
+}
+}
+.sect-container{
+  text-align: center;
+  padding: 2rem;
+}
+.logo{
+  font-size: 3.5rem;
+  font-family: 'montserrat' sans-serif;
+  color: #019214;
+}
+
