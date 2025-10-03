@@ -1,121 +1,164 @@
-.otp-container{
+/* General Styles */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+.login-container {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  min-height: 100vh;
-  gap: 4rem;
-  justify-content: space-between;
-  
-  font-family: 'montserrat', sans-serif;
+  height: 100vh;
   width: 100%;
 }
-.agrimg img{
-  max-width: 600px;
-  height: 100vh; 
-}
-.sect-container{
-  text-align: center;
 
-}
-
-.logo{
-  font-size: 4rem;
-  color: #04b11b;
-  padding: 3rem;
-}
-.verification-box{
+/* Left Form Section */
+.login-form {
+  flex: 1;
+  padding: 40px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 1.2rem;
-  background-color: #ffffff;
-  padding: 4rem;
-  border-radius: 1rem;
-  width: 100%;
-  box-shadow: 0 7px 10px rgba(48, 46, 46, 0.1);
-}
-.verification-box h2{
-  color: #019214;
-}
-.otp-inputs{
-  display: flex;
   align-items: center;
-  gap: 0.2rem;
-  margin: 0 1rem;
-  width: 80%;
-  justify-content: center;
-  
-
-}
-.otp-input{
-  width: 5rem;
-  height: 5rem;
   text-align: center;
-  font-size: 1.5rem;
-  border-radius: 1rem;
-  border: 1px solid #ced4da;
 }
-.resend-section button{
+
+.logo {
+  font-size: 32px;
+  font-weight: 700;
+  color: #14a44d; /* Green */
+  margin-bottom: 20px;
+}
+
+.welcome {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #004900;
+}
+
+.subtitle {
+  font-size: 14px;
+  font-weight: medium;
+  color: #004900;
+  margin-bottom: 30px;
+}
+
+form {
+  width: 100%;
+  max-width: 350px;
+}
+
+/* Input Fields */
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group .icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  width: 10px;
+  height:10px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  background: #f9f9f9;
+}
+
+.input-group input:focus {
+  background: #fff;
+}
+
+.input-group input::placeholder {
+  color: #004900;   /* gray-500 like in Tailwind */
+  opacity: 1;       /* make sure it's fully visible */
+  font-size: 14px;  /* optional - adjust text size */
+  font-weight: medium;
+}
+
+/* Forgot Password */
+.forgot {
+  text-align: left;
+  margin-bottom: 20px;
+  font-display: underline;
+}
+
+.forgot a {
+  font-size: 13px;
+  text-decoration: underline;
+  color: #a3a3a3;
+}
+
+/* Login Button */
+.login-btn {
+  width: 100%;
+  padding: 14px;
   border: none;
-  color: #019214;
-  background-color: #ffffff;
-}
-.resend-section button:hover{
-  color: #d8bc1f;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #004900, #17c51f);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
-
-@media (max-width: 900px) {
-  .otp-container{
-    background-image: url(../img/workpose.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    opacity: 0.8;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .logo{
-  font-size: 5rem;
-  color: #04b11b;
-  font-weight: 900;
+.login-btn:hover {
+  opacity: 0.9;
 }
-  .sect-container{
-  text-align: center;
-  padding: 2rem;
+
+/* Sign Up Text */
+.signup-text {
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.signup-text a {
+  color: #004900;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Right Image Section */
+.login-image {
+  flex: 1;
+  overflow: hidden;
+}
+
+.login-image img {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  height: 100%;
+  object-fit: cover;
 }
 
-  .verification-box{
+/* Responsive Design */
+@media (max-width: 900px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-form {
+    flex: none;
     width: 100%;
-    margin: 0 auto;
-    justify-content: center;
+    padding: 30px 20px;
   }
-  .agrimg img{
-    height: 0;
-    width: 0;
+
+  .login-image {
+    flex: none;
+    width: 100%;
+    height: 300px;
   }
-  .otp-input{
-    width: 2.6rem;
-    height: 2.6rem;
-    text-align: center;
-    font-size: 1.5rem;
-    border: 1px solid #3d3e3f;
-    border-radius: 4px;
-}
-}
-.sect-container{
-  text-align: center;
-  padding: 2rem;
-}
-.logo{
-  font-size: 3.5rem;
-  font-family: 'montserrat' sans-serif;
-  color: #019214;
+
+  .login-image img {
+    height: 100%;
+  }
 }
