@@ -13,6 +13,11 @@
     "@tailwindcss/vite": "^4.1.13",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+<<<<<<< HEAD
+=======
+    "react-feather": "^2.0.10",
+    "react-icons": "^5.5.0",
+>>>>>>> bf84e29b659d2b8d279cba741113a2865a7d4d7f
     "react-router-dom": "^7.9.3",
     "tailwindcss": "^4.1.13"
   },

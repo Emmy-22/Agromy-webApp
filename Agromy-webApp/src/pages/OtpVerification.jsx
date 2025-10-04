@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+import { Link } from "react-router-dom";
+import '../styles/Otpverification.css'
 
 const OtpVerification = () => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -46,7 +47,7 @@ const OtpVerification = () => {
   return (
     <div className="otp-container">
       <div className="sect-container">
-      <h1 className="logo">Agromy</h1>
+      <h1 className="otp-logo">Agromy</h1>
       <div className="verification-box">
         <h2 className="title">Verify Your Email</h2>
         <p className="subtitle">Enter the 6-character code sent to your email</p>

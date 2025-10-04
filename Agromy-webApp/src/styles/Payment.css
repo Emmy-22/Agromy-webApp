@@ -1,0 +1,172 @@
+/**Payment**/
+.payment-container {
+  font-family: 'Lato', sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 20px;
+  color: #333;
+}
+
+.payment-header {
+  display: flex;
+  align-items: center;
+  background-color: #16a34a;
+  color: #fff;
+  padding: 15px 20px;
+  margin: -20px -20px 20px -20px;
+  border-radius: 0 0 12px 12px;
+}
+
+.back-link {
+  font-size: 1.2rem;
+  color: rgb(228, 227, 226);
+  text-decoration: none;
+  font-weight: 700;
+  margin-right: 10px;
+}
+.back-link:hover{
+  color: #08fa61;
+}
+
+
+.header-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  flex: 1;
+  text-align: center;
+}
+
+.payment-form {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.field-group {
+  margin-bottom: 20px;
+}
+
+.field-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.field-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.field-group input:focus {
+  outline: none;
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+.card-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.card-input input {
+  flex: 1;
+  letter-spacing: 4px;
+  font-family: monospace;
+}
+
+.card-logo {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mastercard {
+  display: inline-block;
+  background-color: #eb001b;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.expiry-cvv-group {
+  display: flex;
+  gap: 10px;
+}
+
+.expiry, .cvv {
+  flex: 1;
+}
+
+.expiry-cvv-group input {
+  font-family: monospace;
+}
+
+.email-note {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.proceed-button {
+  width: 100%;
+  background-color: #16a34a;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.proceed-button:hover {
+  background-color: #15803d;
+}
+
+.checkmark {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 480px) {
+  .payment-header {
+    padding: 12px 15px;
+  }
+
+  .header-title {
+    font-size: 1.125rem;
+  }
+
+  .payment-form {
+    padding: 15px;
+  }
+
+  .field-group input {
+    padding: 10px;
+    font-size: 0.875rem;
+  }
+
+  .expiry-cvv-group {
+    flex-direction: column;
+    gap: 0;
+  }
+}

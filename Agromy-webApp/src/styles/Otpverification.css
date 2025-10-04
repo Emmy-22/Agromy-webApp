@@ -5,7 +5,7 @@
   min-height: 100vh;
   gap: 4rem;
   justify-content: space-between;
-  
+  width: 100%;
   font-family: 'montserrat', sans-serif;
   width: 100%;
 }
@@ -18,7 +18,7 @@
 
 }
 
-.logo{
+.otp-logo{
   font-size: 4rem;
   color: #04b11b;
   padding: 3rem;
@@ -65,7 +65,11 @@
   color: #d8bc1f;
 }
 
-
+@media (max-width: 468px){
+  .otp-container{
+    width: 100%;
+  }
+}
 @media (max-width: 900px) {
   .otp-container{
     background-image: url(../img/workpose.png);
@@ -75,10 +79,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
   }
 
-  .logo{
-  font-size: 5rem;
+  .otp-logo{
+  font-size: 3rem;
   color: #04b11b;
   font-weight: 900;
 }
@@ -119,3 +124,4 @@
   font-family: 'montserrat' sans-serif;
   color: #019214;
 }
+
