@@ -1,5 +1,6 @@
 import React from 'react'
 import '../styles/JoinUs.css';
+import { Link } from 'react-router-dom'
 
 const JoinUS = () => {
   return (
@@ -26,7 +27,7 @@ const JoinUS = () => {
                 </div>
                 {/* footer */}
                 <div className='form-footer'>
-                    <p>Have an account?<span className='log-in'> Log In</span></p>
+                    <p>Have an account?<span className='log-in'><Link to="/login" className="log-in">Log In</Link></span></p>
                 </div>
             </div>
         </div>
