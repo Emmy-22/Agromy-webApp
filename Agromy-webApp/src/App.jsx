@@ -9,6 +9,7 @@ import Payment from "./pages/Payment.jsx";
 import CancelOrder from "./pages/CancelOrder.jsx";
 import Location from "./pages/Location.jsx";
 import Otpverification from "./pages/OtpVerification.jsx"
+import JoinUS from "./pages/JoinUs.jsx";
 import "./App.css";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/location" element={<Location />} />
         <Route path="/cancel-order" element={<CancelOrder />} />
+        <Route path="/join-us" element={<JoinUS />} />
       </Routes>
     </Router>
   );
