@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ShoppingCart, Plus, Minus } from 'react-feather';
 import '../styles/Store.css';
 
 const Store = () => {
@@ -11,7 +12,7 @@ const Store = () => {
       image: './img/planatain.jpg',
       category: 'Crops & Grains',
       available: true,
-      quantity: 1
+      quantity: 0
     },
     {
       name: 'Pepper',
@@ -20,16 +21,16 @@ const Store = () => {
       image: './img/pepper.jpg',
       category: 'Crops & Grains',
       available: true,
-      quantity: 1
+      quantity: 0
     },
     {
       name: 'Maize',
       basePrice: 5000,
       unit: 'per bag',
-      image: 'https://via.placeholder.com/200x150?text=Maize',
+      image: '',
       category: 'Crops & Grains',
       available: true,
-      quantity: 1
+      quantity: 0
     },
     {
       name: 'Yam',
@@ -38,7 +39,7 @@ const Store = () => {
       image: './img/yam.jpg',
       category: 'Crops & Grains',
       available: true,
-      quantity: 1
+      quantity: 0
     },
     {
       name: 'Carrots',
@@ -47,41 +48,58 @@ const Store = () => {
       image: './img/carrot.jpg',
       category: 'Crops & Grains',
       available: true,
-      quantity: 1
+      quantity: 0
     },
     {
       name: 'Pumpkin Leaves',
       basePrice: 20000,
       unit: 'per bundle',
-      image: 'https://via.placeholder.com/200x150?text=Pumpkin+Leaves',
+      image: '',
       category: 'Crops & Grains',
       available: true,
-      quantity: 1
+      quantity: 0
     }
   ]);
 
   const [cartCount, setCartCount] = useState(0);
+  const[isOpen, setIsOpen] =useState(false);
 
-  const handleQuantityChange = (index, delta) => {
+  const handleQuantityChange = useCallback((index, delta) => {
     setProducts(prevProducts => {
       const newProducts = [...prevProducts];
       newProducts[index].quantity = Math.max(0, newProducts[index].quantity + delta);
       return newProducts;
+      console.log('Increment called')
     });
-  };
+  }, []);
 
-  const addToCart = (index) => {
+  const addToCart = useCallback((index) => {
     const quantity = products[index].quantity;
-    setCartCount(prevCount => prevCount + quantity);
+    if (quantity > 0){
+      setCartCount(prevCount => prevCount + quantity);
     window.dispatchEvent(new CustomEvent('cartUpdate', { detail: cartCount + quantity }));
+    handleQuantityChange(index, -quantity);
+    };
+    
+  }, [products, cartCount, handleQuantityChange]);
+
+  const getTotalPrice = (basePrice, quantity, unit = 'NGN') => {
+    return `${unit} ${(basePrice * quantity).toLocaleString()}`;
   };
 
-  const getTotalPrice = (basePrice, quantity, unit) => {
-    return `N${(basePrice * quantity).toLocaleString()} ${unit}`;
-  };
+
   const storeMenu =() =>{
     setIsOpen(!isOpen)
   };
+  if(isOpen){
+    <div className="store-modal">
+        <h2>Shopping Cart</h2>
+        <p>Total Items: {cartCount}</p>
+        <button onClick={storeMenu} className="close-btn">
+          <ShoppingCart size={20} /> Close Cart
+        </button>
+      </div>
+  }
 
   return (
 
@@ -102,14 +120,45 @@ const Store = () => {
               <img src={product.image} alt={product.name} className="product-image" />
               <div className="availability">{product.available ? 'Available' : 'Out of Stock'}</div>
               <h3 className="product-name">{product.name}</h3>
-              <p className="product-price">{getTotalPrice(product.basePrice, product.quantity, product.unit)}</p>
+              <p className="product-price">{getTotalPrice(product.basePrice, 1)}</p>
               <div className="quantity-control">
-                <button className="quantity-btn" onClick={() => handleQuantityChange(index, -1)}>-</button>
-                <span className="quantity-value">{product.quantity}</span>
-                <button className="quantity-btn" onClick={() => handleQuantityChange(index, 1)}>+</button>
-              </div>
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleQuantityChange(index, -1);
+                }} 
+                className="quantity-btn"
+                disabled={product.quantity === 0}
+              >
+                <Minus size={16} />
+              </button>
+              <span className="quantity-value">{product.quantity}</span>
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleQuantityChange(index, +1);
+                }} 
+                className="quantity-btn"
+              >
+                <Plus size={16} />
+              </button>
+            </div>
               <div className="product-actions">
-              <button className="add-to-cart" onClick={() => addToCart(index)}>Add to cart</button>
+              <button 
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                addToCart(index);
+              }} 
+              className="add-to-cart"
+              disabled={product.quantity === 0}
+            >
+              Add to Cart ({product.quantity})
+            </button>
+            
+            <p className="total">Total: {getTotalPrice(product.basePrice, product.quantity)}</p>
               </div>
               <div className="payment">
                    <Link to="/Payment" className="payment-btn" onClick={storeMenu}>Proceed with payment</Link>
