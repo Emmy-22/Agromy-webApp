@@ -39,6 +39,8 @@ const Navbar = () => {
     { name: 'FAQ', icon: HelpCircle, path: '/faq' },
     { name: 'Request Product', icon: NairaIcon, path: '/request-product' },
     { name: 'Help', icon: MessageSquare, path: '/help' },
+    { name: 'JoinUS', icon: MessageSquare, path: '/join-us' },
+    
   ];
 
   return (

@@ -6,10 +6,7 @@ const JoinUS = () => {
     <div className='section-container'>
         <div className='form-container'>
             {/* header */}
-            <div className='form-header'>
-              <a href="" className='form-logo'>Agromy</a>
-              <p className='header-p'>Revolutionizing Agriculture</p>
-            </div>
+            
             {/* body */}
             <div className='form-body'>
                 {/* body header */}
@@ -20,11 +17,11 @@ const JoinUS = () => {
                 </div>
                 {/* body content */}
                 <div className='body-content'>
-                    <input type="text" name="fName" id="fName" placeholder='Full Name' />
-                    <input type="email" name="email" id="email" placeholder='Email' />
+                    <input type="text" name="fName" id="fName" placeholder='Full Name' required/>
+                    <input type="email" name="email" id="email" placeholder='Email' required />
                     <input type="text" name='role' id='role'  placeholder='Select Role:(Farmer, Buyer, Distributor or Job Seeker)' />
-                    <input type="password" name="password" id="password"  placeholder='Create Password' />
-                    <input type="c_password" name="c_password" id="c_password" placeholder='Confirm Password' />
+                    <input type="password" name="password" id="password" required placeholder='Create Password' />
+                    <input type="c_password" name="c_password" id="c_password" required placeholder='Confirm Password' />
                     <button className='btn-acct'>Create Account</button>
                 </div>
                 {/* footer */}
