@@ -42,7 +42,7 @@ const Navbar = () => {
     { name: 'Request Product', icon: NairaIcon, path: '/request-product' },
     { name: 'Help', icon: MessageSquare, path: '/help' },
     { name: 'JoinUS', icon: UserPlus, path: '/join-us' },
-    { name: 'Profile', icon: User, path: '/profile' },
+    { name: 'Profile', icon: User, path: '/profiles' },
   ];
 
   return (

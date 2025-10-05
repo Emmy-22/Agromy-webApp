@@ -82,9 +82,7 @@ const OtpVerification = () => {
   return (
     <div className="otp-page">
     <div className="otp-container">
-      <button onClick={() => navigate(-1)} className="back-btn">
-        <ArrowLeft size={20} /> Back
-      </button>
+      <button onClick={() => navigate(-1)} className="back-btn"><ArrowLeft size={20} /> ← Back</button>
       
       <form onSubmit={handleSubmit} className="otp-form">
         <h1>Verify OTP</h1>
