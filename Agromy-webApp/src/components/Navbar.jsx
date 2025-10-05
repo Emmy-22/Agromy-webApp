@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { 
-  Menu, 
-  X, 
-  Home, 
-  ShoppingCart, 
-  HelpCircle, 
+import {
+  Menu,
+  X,
+  Home,
+  ShoppingCart,
+  HelpCircle,
   MessageSquare,
-  UserPlus  
+  UserPlus,
+  User
 } from 'react-feather';
 import './Navbar.css'; // We'll define the CSS in a separate file
 
