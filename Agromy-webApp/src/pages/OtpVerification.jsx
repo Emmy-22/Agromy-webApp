@@ -1,84 +1,126 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from "react-router-dom";
-import '../styles/Otpverification.css'
+import React, { useState, useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { CheckCircle, ArrowLeft } from "react-feather";
+import "./../styles/Otpverification.css"; 
 
 const OtpVerification = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { email, userData } = location.state || {}; 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const [timer, setTimer] = useState(60);
-  const [resendDisabled, setResendDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
   const inputRefs = useRef([]);
 
+
   useEffect(() => {
-    let countdown;
-    if (timer > 0 && resendDisabled) {
-      countdown = setInterval(() => setTimer(prev => prev - 1), 1000);
-    } else if (timer === 0) {
-      setResendDisabled(false);
-    }
-    return () => clearInterval(countdown);
-  }, [timer, resendDisabled]);
+    inputRefs.current[0]?.focus();
+  }, []);
 
-  const handleOtpChange = (e, index) => {
-    const value = e.target.value;
-    if (/^[a-zA-Z0-9]$/.test(value) || value === '') {
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
+  const handleOtpChange = (index, value) => {
+    if (isNaN(value) || value.length > 1) return; // Only numbers, max 1 digit
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
 
-      // Auto-focus next input
-      if (value && index < 5) {
-        inputRefs.current[index + 1].focus();
-      }
-
-      // Verify OTP (example logic - replace with your backend call)
-      if (newOtp.every(digit => digit) && newOtp.join('').toLowerCase() === 'abc12') {
-        alert('Verification successful!');
-      }
+    // Auto-focus next input
+    if (value && index < 5) {
+      inputRefs.current[index + 1].focus();
     }
   };
 
-  const resendCode = () => {
-    setResendDisabled(true);
-    setTimer(60);
-    alert('A new code has been sent to your email.');
-    // Add your resend API call here
+  const handleKeyDown = (e, index) => {
+    if (e.key === 'Backspace' && !otp[index] && index > 0) {
+      inputRefs.current[index - 1].focus(); // Back to previous
+    }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const otpCode = otp.join('');
+    if (otpCode.length !== 6) {
+      alert('input the code from your email');
+      return;
+    }
+    setIsLoading(true);
+
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500)); 
+      console.log('OTP verified for:', email, otpCode);
+
+
+      setIsVerified(true);
+      setTimeout(() => {
+        navigate('/dashboard', { state: { message: 'Account created successfully!' } });
+      }, 2000);
+    } catch (error) {
+      console.error('OTP verification error:', error);
+      alert('Invalid OTP. Try again or resend.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResend = async () => {
+    
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    alert('OTP resent to ' + email);
+  };
+
+  if (isVerified) {
+    return (
+      <div className="otp-container">
+        <div className="success-message">
+          <CheckCircle size={64} color="#10B981" />
+          <h2>OTP Verified!</h2>
+          <p>Your account is being set up...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
+    <div className="otp-page">
     <div className="otp-container">
-      <div className="sect-container">
-      <h1 className="otp-logo">Agromy</h1>
-      <div className="verification-box">
-        <h2 className="title">Verify Your Email</h2>
-        <p className="subtitle">Enter the 6-character code sent to your email</p>
+      <button onClick={() => navigate(-1)} className="back-btn">
+        <ArrowLeft size={20} /> Back
+      </button>
+      
+      <form onSubmit={handleSubmit} className="otp-form">
+        <h1>Verify OTP</h1>
+        <p>Enter the 6-digit code sent to {email}</p>
+        
         <div className="otp-inputs">
           {otp.map((digit, index) => (
             <input
               key={index}
               ref={el => (inputRefs.current[index] = el)}
               type="text"
-              className="otp-input"
-              maxLength="1"
+              maxLength={1}
               value={digit}
-              onChange={e => handleOtpChange(e, index)}
-              autoFocus={index === 0}
+              onChange={(e) => handleOtpChange(index, e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              className="otp-input"
+              autoComplete="off"
             />
           ))}
         </div>
+        
+        <button type="submit" className="btn-verify" disabled={isLoading || otp.join('').length !== 6}>
+          {isLoading ? "Verifying..." : "Verify OTP"}
+        </button>
+        
         <div className="resend-section">
-          <button
-            onClick={resendCode}
-            disabled={resendDisabled}
-            className={`resend-btn ${resendDisabled ? 'disabled' : ''}`}
-          >
-            {resendDisabled ? `Resend in ${timer}s` : "Didn't receive the code? Resend"}
+          <button type="button" onClick={handleResend} className="btn-resend">
+            Resend OTP
           </button>
         </div>
-      </div>
-      </div>
+      </form>
       <div className="agrimg">
-        <img src="./img/workpose.png" alt="workpose" />
-      </div>
+      <img src="../img/workpose.png" alt="workpose" />
+    </div>
+    </div>
+    
     </div>
   );
 };
