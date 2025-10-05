@@ -29,6 +29,8 @@ function App() {
         <Route path="/join-us" element={<JoinUS />} />
         <Route path="/cancel-order" element={<CancelOrder />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="/" element={<Dashboard />} />
       </Routes>
     </Router>
