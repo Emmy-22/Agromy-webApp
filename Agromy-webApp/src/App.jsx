@@ -7,9 +7,11 @@ import JoinUS from "./pages/JoinUs.jsx";
 import Login from "./pages/Login.jsx";
 import RequestProduct from "./pages/RequestProduct.jsx";
 import Help from "./pages/Help.jsx";
-import Location from "./pages/Location.jsx"; // New
-import Payment from "./pages/Payment.jsx"; // New
-import CancelOrder from "./pages/CancelOrder.jsx"; // New
+import Location from "./pages/Location.jsx";
+import Payment from "./pages/Payment.jsx";
+import CancelOrder from "./pages/CancelOrder.jsx";
+import Profile from "./pages/Profile.jsx";
+import EditProfile from "./pages/EditProfile.jsx";
 import "./App.css";
 
 function App() {
