@@ -1,162 +1,191 @@
-.edit-profile-container {
+.edit-profile-page {
   min-height: 100vh;
   background: #F6FFFB;
-  padding-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 1.5rem 3.5rem;
 }
 
-.edit-profile-header {
-  padding: 2.6875rem 1.875rem 1.875rem;
+.edit-profile-shell {
+  width: min(100%, 960px);
   background: #F6FFFB;
-  position: relative;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 45px rgba(3, 58, 24, 0.08);
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.25rem);
 }
 
-.back-button {
-  position: absolute;
-  top: 2.6875rem;
-  left: 1.625rem;
-  background: none;
+.edit-top-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.edit-back-button {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
   border: none;
+  background: rgba(44, 171, 73, 0.12);
   color: #2CAB49;
-  cursor: pointer;
-  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.875rem;
-  height: 2.5625rem;
-  transition: transform 0.2s;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.back-button:hover {
+.edit-back-button:hover {
+  background: rgba(44, 171, 73, 0.18);
   transform: translateX(-4px);
 }
 
-.back-button:active {
-  transform: translateX(-2px);
-}
-
-.edit-title {
+.edit-heading {
+  margin: 0;
   color: #003000;
   font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 2.5rem;
+  font-size: clamp(2.25rem, 4vw, 3rem);
   font-weight: 700;
-  margin: 0;
 }
 
-.edit-profile-form {
-  padding: 0 1.95rem;
+.edit-layout {
+  display: grid;
+  gap: clamp(2rem, 6vw, 3.5rem);
 }
 
-.profile-image-section {
+.edit-avatar-panel {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 3rem;
+  gap: 1.5rem;
 }
 
-.profile-image-placeholder {
-  width: 7.1875rem;
-  height: 7.1875rem;
-  background: #3C4A59;
+.edit-avatar-placeholder {
+  width: clamp(6.5rem, 18vw, 7.1875rem);
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
+  background: #3C4A59;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.profile-image-label {
+.edit-avatar-label {
   color: #287C2C;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 1.25rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
   font-weight: 600;
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
+.edit-form {
+  display: grid;
+  gap: 2.5rem;
 }
 
-.form-label {
-  display: block;
+.edit-form-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.edit-form-field {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.edit-field-label {
   color: #3C4A59;
   font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 500;
-  margin-bottom: 0.5rem;
+  text-transform: capitalize;
 }
 
-.form-input {
+.edit-field-input {
   width: 100%;
-  height: 3.375rem;
+  height: 3.5rem;
   background: #A8A8A8;
   border: none;
-  border-radius: 0.625rem;
-  padding: 0 0.9375rem;
+  border-radius: 0.75rem;
+  padding: 0 1rem;
   color: #FFF;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 1.25rem;
   font-weight: 500;
   box-sizing: border-box;
 }
 
-.form-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.form-input:focus {
+.edit-field-input:focus {
   outline: 2px solid #2CAB49;
   outline-offset: 2px;
 }
 
-.save-button {
-  width: 100%;
-  height: 3.9375rem;
-  background: #287C2C;
+.edit-submit-button {
+  width: min(100%, 366px);
+  height: 4rem;
   border: none;
-  border-radius: 0.625rem;
+  border-radius: 0.75rem;
+  background: #287C2C;
   color: #FFF;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 1.25rem;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 2rem;
-  transition: background 0.2s, transform 0.2s;
+  justify-self: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: 0 16px 30px rgba(40, 124, 44, 0.25);
 }
 
-.save-button:hover {
+.edit-submit-button:hover {
   background: #2CAB49;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(44, 171, 73, 0.3);
 }
 
-.save-button:active {
+.edit-submit-button:active {
   transform: translateY(0);
 }
 
-@media (min-width: 768px) {
-  .edit-profile-container {
-    max-width: 428px;
-    margin: 0 auto;
+@media (min-width: 900px) {
+  .edit-layout {
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .edit-avatar-panel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .edit-avatar-label {
+    font-size: 1.3125rem;
   }
 }
 
-@media (max-width: 390px) {
-  .edit-title {
-    font-size: 2rem;
+@media (max-width: 600px) {
+  .edit-profile-page {
+    padding: 2rem 1rem 3rem;
   }
 
-  .form-label {
-    font-size: 1.25rem;
+  .edit-profile-shell {
+    padding: 1.75rem 1.5rem;
   }
 
-  .form-input {
+  .edit-form-grid {
+    gap: 1.25rem;
+  }
+
+  .edit-field-label {
     font-size: 1.125rem;
   }
 
-  .profile-image-placeholder {
-    width: 6rem;
-    height: 6rem;
+  .edit-field-input {
+    font-size: 1.125rem;
+    height: 3.25rem;
   }
 
-  .profile-image-label {
-    font-size: 1.125rem;
+  .edit-submit-button {
+    width: 100%;
   }
 }
