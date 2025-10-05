@@ -1,0 +1,162 @@
+.edit-profile-container {
+  min-height: 100vh;
+  background: #F6FFFB;
+  padding-bottom: 2rem;
+}
+
+.edit-profile-header {
+  padding: 2.6875rem 1.875rem 1.875rem;
+  background: #F6FFFB;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 2.6875rem;
+  left: 1.625rem;
+  background: none;
+  border: none;
+  color: #2CAB49;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.875rem;
+  height: 2.5625rem;
+  transition: transform 0.2s;
+}
+
+.back-button:hover {
+  transform: translateX(-4px);
+}
+
+.back-button:active {
+  transform: translateX(-2px);
+}
+
+.edit-title {
+  color: #003000;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.edit-profile-form {
+  padding: 0 1.95rem;
+}
+
+.profile-image-section {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.profile-image-placeholder {
+  width: 7.1875rem;
+  height: 7.1875rem;
+  background: #3C4A59;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-image-label {
+  color: #287C2C;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  color: #3C4A59;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  height: 3.375rem;
+  background: #A8A8A8;
+  border: none;
+  border-radius: 0.625rem;
+  padding: 0 0.9375rem;
+  color: #FFF;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.25rem;
+  font-weight: 500;
+  box-sizing: border-box;
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-input:focus {
+  outline: 2px solid #2CAB49;
+  outline-offset: 2px;
+}
+
+.save-button {
+  width: 100%;
+  height: 3.9375rem;
+  background: #287C2C;
+  border: none;
+  border-radius: 0.625rem;
+  color: #FFF;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 2rem;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.save-button:hover {
+  background: #2CAB49;
+  transform: translateY(-2px);
+}
+
+.save-button:active {
+  transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+  .edit-profile-container {
+    max-width: 428px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 390px) {
+  .edit-title {
+    font-size: 2rem;
+  }
+
+  .form-label {
+    font-size: 1.25rem;
+  }
+
+  .form-input {
+    font-size: 1.125rem;
+  }
+
+  .profile-image-placeholder {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .profile-image-label {
+    font-size: 1.125rem;
+  }
+}
