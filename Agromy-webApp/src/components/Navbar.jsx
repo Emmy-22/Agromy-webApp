@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { 
-  Menu, 
-  X, 
-  Home, 
-  ShoppingCart, 
-  HelpCircle, 
+import {
+  Menu,
+  X,
+  Home,
+  ShoppingCart,
+  HelpCircle,
   MessageSquare,
-  UserPlus  
+  UserPlus,
+  User
 } from 'react-feather';
 import './Navbar.css'; // We'll define the CSS in a separate file
 
@@ -41,7 +42,7 @@ const Navbar = () => {
     { name: 'Request Product', icon: NairaIcon, path: '/request-product' },
     { name: 'Help', icon: MessageSquare, path: '/help' },
     { name: 'JoinUS', icon: UserPlus, path: '/join-us' },
-    
+    { name: 'Profile', icon: User, path: '/profile' },
   ];
 
   return (
