@@ -29,7 +29,7 @@ const JoinUS = () => {
       await new Promise(resolve => setTimeout(resolve,2000));
       console.log("Information submitted:", formData)
       alert("Information Submitted");
-      //to know if the form submission is successful
+      
       navigate('otp-verification', {
         state:{ email: formData.email, useData: formData }
       });
@@ -44,11 +44,7 @@ const JoinUS = () => {
   return (
     <div className='section-container'>
         <div className='form-container'>
-            {/* header */}
-            
-            {/* body */}
             <div className='form-body'>
-                {/* body header */}
                 <div className='body-header'>
                   <h3>Join Agromy Today</h3>
                   <p>Whether you are a farmer, buyer, distributor, or job seeker.</p>

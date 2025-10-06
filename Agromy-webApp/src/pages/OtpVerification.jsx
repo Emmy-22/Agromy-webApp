@@ -18,7 +18,7 @@ const OtpVerification = () => {
   }, []);
 
   const handleOtpChange = (index, value) => {
-    if (isNaN(value) || value.length > 1) return; // Only numbers, max 1 digit
+    if (isNaN(value) || value.length > 1) return; 
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -31,7 +31,7 @@ const OtpVerification = () => {
 
   const handleKeyDown = (e, index) => {
     if (e.key === 'Backspace' && !otp[index] && index > 0) {
-      inputRefs.current[index - 1].focus(); // Back to previous
+      inputRefs.current[index - 1].focus(); 
     }
   };
 
@@ -82,7 +82,7 @@ const OtpVerification = () => {
   return (
     <div className="otp-page">
     <div className="otp-container">
-      <button onClick={() => navigate(-1)} className="back-btn"><ArrowLeft size={20} /> ← Back</button>
+      <button onClick={() => navigate(-1)} className="back-btn">< ArrowLeft size={20} />Back</button>
       
       <form onSubmit={handleSubmit} className="otp-form">
         <h1>Verify OTP</h1>
