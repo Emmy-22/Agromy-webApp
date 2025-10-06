@@ -30,7 +30,7 @@ function App() {
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/cancel-order" element={<CancelOrder />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profiles />} />
+        <Route path="/profiles" element={<Profiles />} />
         <Route path="/" element={<Dashboard />} />
 
       </Routes>
