@@ -110,6 +110,11 @@
     height: 100%;
     object-fit: cover;
 }
+.log-in {
+    text-decoration: none;
+    color: #16a34a;
+    font-weight: 600;
+}
 /* for smaller screen */
 @media (max-width: 768px){
     .section-container{
