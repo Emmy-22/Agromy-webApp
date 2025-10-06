@@ -93,13 +93,13 @@
 
 .back-btn {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 3rem;
+  left: 0;
   background: none;
   border: none;
   color: white;
   background-color: #059669;
-  padding: 2rem;
+  padding: 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -107,7 +107,11 @@
   font-size: 1rem;
   z-index: 100;
 }
-
+.back-btn:hover {
+  background-color: #086446;
+  color: white;
+  transform: scale(1.05);
+}
 .success-message {
   text-align: center;
   padding: 2rem;

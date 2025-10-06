@@ -27,7 +27,7 @@ function App() {
         <Route path="/location" element={<Location />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/join-us" element={<JoinUS />} />
-        <Route path="/otp-verification" element={<OtpVerification />} />
+        <Route path="/join-us/otp-verification" element={<OtpVerification />} />
         <Route path="/cancel-order" element={<CancelOrder />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profiles" element={<Profiles />} />
