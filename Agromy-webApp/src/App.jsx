@@ -11,6 +11,7 @@ import Location from "./pages/Location.jsx";
 import Payment from "./pages/Payment.jsx";
 import CancelOrder from "./pages/CancelOrder.jsx";
 import Profiles from "./pages/Profiles.jsx";
+import Cart from "./pages/Cart.jsx";
 import OtpVerification from "./pages/OtpVerification.jsx";
 import "./App.css";
 
@@ -32,7 +33,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profiles" element={<Profiles />} />
         <Route path="/" element={<Dashboard />} />
-
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </Router>
   );

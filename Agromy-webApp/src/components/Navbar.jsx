@@ -7,7 +7,8 @@ import {
   HelpCircle,
   MessageSquare,
   UserPlus,
-  User
+  User,
+  
 } from 'react-feather';
 import './Navbar.css'; // We'll define the CSS in a separate file
 
@@ -43,6 +44,8 @@ const Navbar = () => {
     { name: 'Help', icon: MessageSquare, path: '/help' },
     { name: 'JoinUS', icon: UserPlus, path: '/join-us' },
     { name: 'Profile', icon: User, path: '/profiles' },
+    { name: 'Cart', icon: ShoppingCart, path: '/cart' },
+
   ];
 
   return (
