@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
+import { useAuth } from '../contexts/AuthContext.jsx';
 import '../styles/JoinUs.css';
 import { Link, useNavigate } from 'react-router-dom'
 
 const JoinUS = () => {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     fullName: "",
     email:"",
@@ -12,34 +12,50 @@ const JoinUS = () => {
     role: "",
     confirmPassword: "",
   });
+  
+  const [isLoading, setIsLoading] = useState(false);
 
-  const[isLoading, setIsLoading]= useState(false);
-  const handleChange = (e)=> {
-    setForm({...formData, [e.target.name]: e.target.value})
-  }
-  const handleSubmit = async (e) =>{
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword){
-      alert("Password does not match");
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords don't match!");
       return;
     }
     setIsLoading(true);
 
-    try{
-      await new Promise(resolve => setTimeout(resolve,2000));
-      console.log("Information submitted:", formData)
-      alert("Information Submitted");
-      
-      navigate('otp-verification', {
-        state:{ email: formData.email, useData: formData }
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      console.log('Registration submitted:', formData);
+
+      // FIXED: Create and pass full state object explicitly
+      const stateData = {
+        email: formData.email,
+        userData: {
+          id: Date.now(), // Unique ID
+          email: formData.email,
+          password: formData.password // Don't store in prod
+        }
+      };
+      console.log('📤 Navigating to OTP with state:', stateData); // Debug
+
+      navigate('/otp-verification', { 
+        state: stateData // Pass as object
       });
-    }catch (error){
+    } catch (error) {
       console.error('Registration error:', error);
-      alert('Account creation was not successful');
-    }finally {
-      setIsLoading(false)
+      alert('Failed to create account. Try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
+  
 
   return (
     <div className='section-container'>
@@ -69,7 +85,7 @@ const JoinUS = () => {
             </div>
         </div>
         <div className='image-container'>
-          <img src="./img/workpose.png" alt="farmer carrying hoe on her shoulder and basket on the other hand" className='flip-horizontal' />
+          <img src='./img/workpose.png' alt="farmer carrying hoe on her shoulder and basket on the other hand" className='flip-horizontal' />
         </div>
     </div>
    

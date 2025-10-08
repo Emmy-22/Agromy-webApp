@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CheckCircle, ArrowLeft } from "react-feather";
+import { useAuth } from "../contexts/AuthContext.jsx";
 import "./../styles/Otpverification.css"; 
 
 const OtpVerification = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { email, userData } = location.state || {}; 
+  const { login } = useAuth();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [isLoading, setIsLoading] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
@@ -23,7 +25,7 @@ const OtpVerification = () => {
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // Auto-focus next input
+
     if (value && index < 5) {
       inputRefs.current[index + 1].focus();
     }
@@ -47,7 +49,7 @@ const OtpVerification = () => {
     try {
       await new Promise(resolve => setTimeout(resolve, 1500)); 
       console.log('OTP verified for:', email, otpCode);
-
+      login(userData);
 
       setIsVerified(true);
       setTimeout(() => {
@@ -73,7 +75,7 @@ const OtpVerification = () => {
         <div className="success-message">
           <CheckCircle size={64} color="#10B981" />
           <h2>OTP Verified!</h2>
-          <p>Your account is being set up...</p>
+          <p>Redrecting to dashboard...</p>
         </div>
       </div>
     );

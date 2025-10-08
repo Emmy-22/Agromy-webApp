@@ -1,131 +1,207 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Camera } from "react-feather";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { Edit3, Save, Camera, User } from "react-feather";
 import "../styles/Profiles.css";
 
 const Profile = () => {
-  const navigate = useNavigate();
-
+  const { user } = useAuth(); 
+  const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    name: "First Last",
-    email: "name@email.com",
+    name: "Name",
     role: "Farmer",
-    location: "10 olujoda, Ekiti State",
-    specialization: "Crops",
     experience: "8",
+    location: "10 Olujoda Ekiti",
+    specialization: "Crops",
+    image:
+      "https://api.builder.io/api/v1/image/assets/TEMP/cf04e907fb592bf71b0b492977eac0e1d83d6492?width=620",
   });
+  const [avatar, setAvatar] = useState('');
 
-  const handleChange = (event) => {
+  
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        name: user.name || '', 
+        email: user.email || '',
+        phone: user.phone || '',
+        address: user.address || '',
+        role: user.role || 'Farmer',
+        location: user.location || '',
+        specialization: user.specialization || '',
+        image: user.image || '',
+      });
+      setAvatar(user.avatar || '');
+    }
+  }, [user]);
+
+  const handleChange = (e) => {
     setFormData({
       ...formData,
-      [event.target.name]: event.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    navigate("/profile");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    const updatedUser = { ...user, ...formData, avatar };
+    
+    console.log('Profile updated:', updatedUser);
+    alert('Profile updated successfully!');
+    setIsEditing(false);
   };
 
-  const handleBack = () => {
-    navigate("/profile");
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);
+    if (!isEditing) setFormData({ ...formData });
   };
 
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        setAvatar(ev.target.result); 
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  if (!user) {
+    return <div className="not-logged-in">
+      <h1>Agromy</h1>
+      Please log in to view your profile.</div>;
+  }
   return (
-    <section className="edit-profile-page">
-      <div className="edit-profile-shell">
-        <header className="edit-top-bar">
-          <button type="button" className="edit-back-button" onClick={handleBack}>
-            <ArrowLeft size={22} />
-          </button>
-          <h1 className="edit-heading">Edit</h1>
-        </header>
+    <div className="profile-container">
+      <div className="profile-header">
+        <h1><User size={32} /> My Profile</h1>
+        <button onClick={toggleEdit} className="edit-btn">
+          {isEditing ? <Save size={16} /> : <Edit3 size={16} />}
+          {isEditing ? 'Save' : 'Edit Profile'}
+        </button>
+      </div>
 
-        <div className="edit-layout">
-          <div className="edit-avatar-panel">
-            <div className="edit-avatar-placeholder" aria-hidden="true">
-              <Camera size={38} color="#EBF5EF" />
-            </div>
-            <span className="edit-avatar-label">Profile image</span>
+      <div className="profile-card">
+        <div className="avatar-section">
+          <div className="avatar-wrapper">
+            {avatar ? (
+              <img 
+                src={avatar} 
+                alt="Avatar" 
+                className="avatar" 
+              />
+            ) : (
+              <div className="avatar-placeholder">
+                <User size={48} color="#10B981" />
+                <span>No Avatar</span>
+              </div>
+            )}
+            <label className="avatar-upload">
+              <Camera size={20} />
+              <input type="file" accept="image/*" onChange={handleAvatarChange} />
+            </label>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="profile-form">
+          <div className="form-group">
+            <label htmlFor="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              disabled={!isEditing}
+              required
+            />
           </div>
 
-          <form className="edit-form" onSubmit={handleSubmit}>
-            <div className="edit-form-grid">
-              <label className="edit-form-field">
-                <span className="edit-field-label">NAME</span>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="edit-field-input"
-                />
-              </label>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              disabled={!isEditing || true} 
+              required
+            />
+          </div>
 
-              <label className="edit-form-field">
-                <span className="edit-field-label">EMAIL</span>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="edit-field-input"
-                />
-              </label>
+          <div className="form-group">
+            <label htmlFor="phone">Phone</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              disabled={!isEditing}
+              required
+            />
+          </div>
 
-              <label className="edit-form-field">
-                <span className="edit-field-label">ROLE</span>
-                <input
-                  type="text"
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  className="edit-field-input"
-                />
-              </label>
+          <div className="form-group">
+            <label htmlFor="address">Address</label>
+            <input
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              rows={3}
+              disabled={!isEditing}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="role">Role</label>
+            <input
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              rows={3}
+              disabled={!isEditing}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="location">Location</label>
+            <input
+              id="location"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              rows={3}
+              disabled={!isEditing}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="specialization">Specialization</label>
+            <input
+              id="specialization"
+              name="specialization"
+              value={formData.specialization}
+              onChange={handleChange}
+              rows={3}
+              disabled={!isEditing}
+              required
+            />
+          </div>
 
-              <label className="edit-form-field">
-                <span className="edit-field-label">Location</span>
-                <input
-                  type="text"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  className="edit-field-input"
-                />
-              </label>
-
-              <label className="edit-form-field">
-                <span className="edit-field-label">Specialization</span>
-                <input
-                  type="text"
-                  name="specialization"
-                  value={formData.specialization}
-                  onChange={handleChange}
-                  className="edit-field-input"
-                />
-              </label>
-
-              <label className="edit-form-field">
-                <span className="edit-field-label">EXPERIENCE</span>
-                <input
-                  type="number"
-                  name="experience"
-                  value={formData.experience}
-                  onChange={handleChange}
-                  className="edit-field-input"
-                  min="0"
-                />
-              </label>
-            </div>
-
-            <button type="submit" className="edit-submit-button">
-              Save
+          {isEditing && (
+            <button type="submit" className="save-btn">
+              <Save size={16} /> Save Changes
             </button>
-          </form>
-        </div>
+          )}
+        </form>
       </div>
-    </section>
+    </div>
   );
 };
 

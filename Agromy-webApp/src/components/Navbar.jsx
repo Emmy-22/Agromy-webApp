@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 import {
   Menu,
   X,
@@ -8,14 +9,24 @@ import {
   MessageSquare,
   UserPlus,
   User,
+  LogIn,
+  LogOut
   
 } from 'react-feather';
-import './Navbar.css'; // We'll define the CSS in a separate file
+import './Navbar.css'; 
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+  
+  const [authKey, setAuthKey] = useState(user ? 'logged-in' : 'guest');
+  useEffect(() => {
+    const newKey = user ? 'logged-in' : 'guest';
+    setAuthKey(newKey);
+    console.log('🔄 Navbar auth changed to:', newKey, 'User:', user);
+  }, [user]);
 
-  // Custom Naira icon component to replace DollarSign
+
   const NairaIcon = ({ size = 20 }) => (
     <span 
       style={{ 
@@ -31,12 +42,12 @@ const Navbar = () => {
       ₦
     </span>
   );
-
+  
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const navItems = [
+  const navItems = user ? [
     { name: 'Dashboard', icon: Home, path: '/dashboard' },
     { name: 'Store', icon: ShoppingCart, path: '/store' },
     { name: 'FAQ', icon: HelpCircle, path: '/faq' },
@@ -46,15 +57,22 @@ const Navbar = () => {
     { name: 'Profile', icon: User, path: '/profiles' },
     { name: 'Cart', icon: ShoppingCart, path: '/cart' },
 
+  ]: [ 
+    { name: 'Login', icon: LogIn, path: '/login' },
+    { name: 'JoinUs', icon: User, path: '/join-us' },
   ];
 
+  const handleLogout = () => {
+    logout();
+    setIsMobileMenuOpen(false); 
+  };
   return (
-    <nav className="navbar">
+    <nav className="navbar" key={authKey}>
       <div className="navbar-brand">
         <span className="brand-text">Agromy</span>
       </div>
       
-      {/* Desktop Menu */}
+      
       <ul className="nav-menu desktop-menu">
         {navItems.map((item, index) => (
           <li key={index}>
@@ -64,14 +82,22 @@ const Navbar = () => {
             </a>
           </li>
         ))}
+        {user && (
+          <li>
+            <button onClick={handleLogout} className="nav-link logout">
+              <LogOut size={20} />
+              <span>Logout</span>
+            </button>
+          </li>
+        )}
       </ul>
 
-      {/* Mobile Menu Toggle */}
+      
       <div className="mobile-menu-toggle" onClick={toggleMobileMenu}>
         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </div>
 
-      {/* Mobile Menu */}
+      
       {isMobileMenuOpen && (
         <ul className="nav-menu mobile-menu">
           {navItems.map((item, index) => (
@@ -82,6 +108,14 @@ const Navbar = () => {
               </a>
             </li>
           ))}
+          {user && (
+            <li>
+              <button onClick={handleLogout} className="nav-link mobile-nav-link logout">
+                <LogOut size={24} />
+                <span>Logout</span>
+              </button>
+            </li>
+          )}
         </ul>
       )}
     </nav>

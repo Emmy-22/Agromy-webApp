@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Store from "./pages/Store.jsx";
 import FAQ from "./pages/FAQ.jsx";
+import { AuthProvider } from './contexts/AuthContext'
 import JoinUS from "./pages/JoinUs.jsx";
 import Login from "./pages/Login.jsx";
 import RequestProduct from "./pages/RequestProduct.jsx";
@@ -19,6 +20,7 @@ import "./App.css";
 function App() {
   return (
     <Router>
+      <AuthProvider>
       <CartProvider>
       <Navbar />
       <Routes>
@@ -30,14 +32,15 @@ function App() {
         <Route path="/location" element={<Location />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/join-us" element={<JoinUS />} />
-        <Route path="/join-us/otp-verification" element={<OtpVerification />} />
+        <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/cancel-order" element={<CancelOrder />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profiles" element={<Profiles />} />
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<JoinUS />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
       </CartProvider>
+      </AuthProvider>
     </Router>
   );
 }
