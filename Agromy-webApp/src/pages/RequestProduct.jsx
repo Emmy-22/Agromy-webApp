@@ -23,10 +23,10 @@ const RequestProduct = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call (replace with your actual backend endpoint, e.g., fetch('/api/request-product'))
+  
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Mock delay
-      console.log('Product request submitted:', formData); // In real app, send to server
+      await new Promise(resolve => setTimeout(resolve, 2000)); 
+      console.log('Product request submitted:', formData); 
       setIsSubmitted(true);
       setFormData({ productName: '', description: '', quantity: '', email: '' });
     } catch (error) {

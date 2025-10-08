@@ -66,7 +66,26 @@
 .product-card:hover {
   transform: translateY(-5px);
 }
-
+.cart-toggle {
+  background-color: #16a34a;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+.cancel{
+  background-color: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
 .product-image {
   width: 100%;
   height: 300px;
@@ -89,7 +108,7 @@
   margin-bottom: 0.5rem;
 }
 
-.product-description {
+.category {
   font-size: 0.95rem;
   color: #666;
   margin-bottom: 1rem;

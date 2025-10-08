@@ -1,84 +1,128 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
-import '../styles/Payment.css'
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import { CreditCard, Lock } from 'react-feather';
+import { Link } from 'react-router-dom';
+import '../styles/Payment.css'; 
 
 const Payment = () => {
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardholderName, setCardholderName] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvv, setCvv] = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { cartItems, total } = location.state || { cartItems: [], total: 0 };
+  const [formData, setFormData] = useState({
+    cardNumber: '',
+    expiry: '',
+    cvv: '',
+    name: ''
+  });
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleSubmit = (e) => {
+  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    let processedValue = value;
+
+    if (name === 'cardNumber') {
+      processedValue = value.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 '); // Numbers only, add space every 4 digits
+      processedValue = processedValue.substring(0, 19); // Enforce max length
+    } else if (name === 'cvv') {
+      processedValue = value.replace(/\D/g, ''); // Numbers only for CVV
+      processedValue = processedValue.substring(0, 3);
+    } else if (name === 'expiry') {
+      processedValue = value.replace(/\D/g, '').replace(/(\d{2})(\d{2})?/, '$1/$2'); // MM/YY format
+      processedValue = processedValue.substring(0, 5);
+    }
+    setFormData({ ...formData, [name]: processedValue});
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate payment processing (replace with real API call, e.g., Stripe)
-    alert('Payment processed successfully! Your order and transaction details will be sent to your email.');
+    setIsProcessing(true);
+    
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    const savedPurchases = localStorage.getItem('agromy-purchases') || '[]';
+  const purchases = JSON.parse(savedPurchases);
+  const newPurchases = [...purchases, ...cartItems.map(item => ({
+    name: item.name,
+    amount: item.basePrice * item.quantity,
+    quantity: item.quantity,
+    price: item.basePrice,
+    status: 'Purchased',
+    date: new Date().toLocaleDateString()
+  }))];
+  localStorage.setItem('agromy-purchases', JSON.stringify(newPurchases));
+  
+  clearCart(); 
+  
+  alert('Payment successful! Order confirmed.');
+  navigate('/dashboard');
   };
 
   return (
     <div className="payment-container">
-      <header className="payment-header">
-        <Link to="/store" className="back-link">← Back to Store</Link>
-        <h1 className="header-title">Payment details</h1>
-      </header>
+      <div className="payment-header">
+      <Link to="/store" className="back-link">← Back to Store</Link>
+      <h1><CreditCard size={32} /> Secure Payment</h1>
+      <p>Total: ₦{total.toLocaleString()}</p>
+      </div>
       <form onSubmit={handleSubmit} className="payment-form">
-        <div className="field-group">
-          <label htmlFor="card-number">Card number</label>
-          <div className="card-input">
-            <input
-              type="text"
-              id="card-number"
-              value={cardNumber}
-              onChange={(e) => setCardNumber(e.target.value.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, '$1 '))}
-              placeholder="0000 0000 0000 0000"
-              maxLength="19"
-              required
-            />
-            <div className="card-logo">
-              <span className="mastercard">MasterCard</span> {/* Simple placeholder; use SVG for real icon */}
-            </div>
-          </div>
-        </div>
-        <div className="field-group">
-          <label htmlFor="cardholder-name">Cardholder name</label>
+        <div className="form-group">
+          <label htmlFor="cardNumber">Card Number</label>
           <input
             type="text"
-            id="cardholder-name"
-            value={cardholderName}
-            onChange={(e) => setCardholderName(e.target.value)}
-            placeholder="Joyce Uzoma"
+            id="cardNumber"
+            name="cardNumber"
+            value={formData.cardNumber}
+            onChange={handleChange}
+            placeholder="1234 5678 9012 3456"
+            maxLength={19}
             required
           />
         </div>
-        <div className="expiry-cvv-group">
-          <div className="field-group expiry">
-            <label htmlFor="expiry-date">Expiry date</label>
+        
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="expiry">Expiry Date</label>
             <input
               type="text"
-              id="expiry-date"
-              value={expiryDate}
-              onChange={(e) => setExpiryDate(e.target.value.replace(/\D/g, '').replace(/(\d{2})(\d{0,4})/, '$1/$2'))}
-              placeholder="MM/YYYY"
-              maxLength="7"
+              id="expiry"
+              name="expiry"
+              value={formData.expiry}
+              onChange={handleChange}
+              placeholder="MM/YY"
+              maxLength={5}
               required
             />
           </div>
-          <div className="field-group cvv">
+          <div className="form-group">
             <label htmlFor="cvv">CVV</label>
             <input
               type="text"
               id="cvv"
-              value={cvv}
-              onChange={(e) => setCvv(e.target.value.replace(/\D/g, ''))}
-              placeholder="000"
-              maxLength="3"
+              name="cvv"
+              value={formData.cvv}
+              onChange={handleChange}
+              placeholder="123"
+              maxLength={3}
               required
             />
           </div>
         </div>
-        <p className="email-note">Your order and transaction details will be sent to your email after a successful payment</p>
-        <button type="submit" className="proceed-button">
-          <span className="checkmark">✓</span> Proceed with payment
+        
+        <div className="form-group">
+          <label htmlFor="name">Name on Card</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="John Doe"
+            required
+          />
+        </div>
+        
+        <button type="submit" className="pay-btn" disabled={isProcessing}>
+          {isProcessing ? 'Processing...' : `Pay ₦${total.toLocaleString()}`}
         </button>
       </form>
     </div>
@@ -86,3 +130,5 @@ const Payment = () => {
 };
 
 export default Payment;
+
+

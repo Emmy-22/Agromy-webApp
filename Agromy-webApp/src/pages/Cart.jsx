@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   ShoppingCart, 
   Trash2, 
@@ -6,62 +7,18 @@ import {
   Plus, 
   CreditCard 
 } from 'react-feather';
+import { useCart } from '../contexts/CartContext.jsx';
 import '../styles/Cart.css';
 
 const Cart = () => {
- 
-  const [cartItems, setCartItems] = useState(() => {
-    const saved = localStorage.getItem('agromy-cart');
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  
-  useEffect(() => {
-    localStorage.setItem('agromy-cart', JSON.stringify(cartItems));
-  }, [cartItems]);
-
-  
-  useEffect(() => {
-    const handleCartUpdate = (e) => {
-      const newItem = e.detail; 
-      if (newItem && newItem.quantity > 0) {
-        setCartItems(prev => {
-          
-          const existingIndex = prev.findIndex(item => item.name === newItem.name);
-          if (existingIndex > -1) {
-            
-            const updated = [...prev];
-            updated[existingIndex].quantity += newItem.quantity;
-            return updated;
-          } else {
-            return [...prev, newItem];
-          }
-        });
-      }
-    };
-
-    window.addEventListener('cartupdate', handleCartUpdate);
-    return () => window.removeEventListener('cartupdate', handleCartUpdate);
-  }, []); 
-
+  const { cartItems, updateQuantity, removeItem, getTotal, clearCart } = useCart();
+  const navigate = useNavigate();
   const getSubtotal = (basePrice, quantity) => basePrice * quantity;
-  const getTotal = () => cartItems.reduce((total, item) => total + getSubtotal(item.basePrice, item.quantity), 0);
-
-  const updateQuantity = (id, delta) => {
-    setCartItems(prev => prev.map(item => 
-      item.id === id 
-        ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-        : item
-    ));
-  };
-
-  const removeItem = (id) => {
-    setCartItems(prev => prev.filter(item => item.id !== id));
-  };
 
   const handleCheckout = () => {
     if (cartItems.length === 0) return;
-    alert(`Proceeding to checkout with ₦${getTotal().toLocaleString()} total!\nItems: ${cartItems.map(i => `${i.name} x${i.quantity}`).join(', ')}`);
+    navigate('/payment', { state: {cartItems, total: getTotal()}});
+    
     
   };
 

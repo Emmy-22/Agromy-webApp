@@ -12,12 +12,14 @@ import Payment from "./pages/Payment.jsx";
 import CancelOrder from "./pages/CancelOrder.jsx";
 import Profiles from "./pages/Profiles.jsx";
 import Cart from "./pages/Cart.jsx";
+import { CartProvider } from './contexts/CartContext.jsx';
 import OtpVerification from "./pages/OtpVerification.jsx";
 import "./App.css";
 
 function App() {
   return (
     <Router>
+      <CartProvider>
       <Navbar />
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
@@ -35,6 +37,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
+      </CartProvider>
     </Router>
   );
 }
