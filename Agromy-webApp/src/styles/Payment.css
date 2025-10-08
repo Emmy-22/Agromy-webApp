@@ -74,6 +74,7 @@
 
 .pay-btn:hover:not(:disabled) {
   background-color: #059669;
+  text-decoration: none;
 }
 
 .pay-btn:disabled {

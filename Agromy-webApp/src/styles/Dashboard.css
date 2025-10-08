@@ -25,7 +25,9 @@
 .dashboard-table {
   overflow-x: auto;
 }
-
+a:hover{
+  text-decoration: none;
+}
 table {
   width: 100%;
   border-collapse: collapse;

@@ -25,6 +25,7 @@
 }
 .payment-btn:hover{
   background-color: #14532d;
+  text-decoration: none;
 }
 .store-actions{
   display: flex;
