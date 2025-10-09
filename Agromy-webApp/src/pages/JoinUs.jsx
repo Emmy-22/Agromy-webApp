@@ -28,26 +28,39 @@ const JoinUS = () => {
       alert("Passwords don't match!");
       return;
     }
+    if (!formData.fullName || !formData.role || !formData.email ) {
+      alert("Please fill in all fields.");
+      return;
+    }
     setIsLoading(true);
 
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
       console.log('Registration submitted:', formData);
+      const currentFormData = { ...formData}
+      const userData =  {
+          id: Date.now(),
+          fullname: formData.fullName.trim(),
+          role: formData.role.trim(),
+          email: formData.email.trim(),
+          password: formData.password.trim() 
+        };
+      
+      console.log('📤 Passing userData to OTP:', userData);
 
-      // FIXED: Create and pass full state object explicitly
-      const stateData = {
-        email: formData.email,
-        userData: {
-          id: Date.now(), // Unique ID
-          email: formData.email,
-          password: formData.password // Don't store in prod
-        }
+      
+      const stateToPass = { 
+        fullname: formData.fullName.trim(),
+        role: formData.role.trim(),
+        email: currentFormData.email.trim(),
+        userData
       };
-      console.log('📤 Navigating to OTP with state:', stateData); // Debug
-
       navigate('/otp-verification', { 
-        state: stateData // Pass as object
-      });
+        state: {
+          email: formData.email,
+          userData
+       }
+  });
     } catch (error) {
       console.error('Registration error:', error);
       alert('Failed to create account. Try again.');
@@ -67,20 +80,79 @@ const JoinUS = () => {
                   <p>Agromy is your trusted gateway to agriculture without borders.</p>
                 </div>
                 {/* body content */}
-                <form className='body-content' onSubmit={handleSubmit}>
-                    
-                    <input type="text" name="fName" id="fName" placeholder='Full Name' required/>
-                    <input type="email" name="email" id="email" placeholder='Email' required />
-                    <input type="text" name='role' id='role'  placeholder='Select Role:(Farmer, Buyer, Distributor or Job Seeker)' />
-                    <input type="password" name="password" id="password" required placeholder='Create Password' />
-                    <input type="password" name="c_password" id="c_password" required placeholder='Confirm Password' />
-                    <button  type="submit" className='btn-acct' disabled={isLoading}> {isLoading ? "Creating Account...": "Create Account"}</button>
-                 
-                 </form>
-          
-                <div className='form-footer'>
-                    <p>Already have an account?<span className='log-in'><Link to="/login" className="log-in">Log In</Link></span></p>
-                </div>
+                
+                  <form onSubmit={handleSubmit} className="body-content">
+                    <div className="form-group">
+                      <label htmlFor="fullName">Full Name</label>
+                      <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                        required
+                        placeholder="Enter your full name"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="role">Role</label>
+                      <select
+                        id="role"
+                        name="role"
+                        value={formData.role}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="select">Select Option</option>
+                        <option value="buyer">Buyer</option>
+                        <option value="seller">Seller</option>
+                        <option value="distributor">Distributor</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="email">Email</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        placeholder="your.email@domain.com"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="password">Password</label>
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                        placeholder="Create a strong password"
+                        minLength={6}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="confirmPassword">Confirm Password</label>
+                      <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        required
+                        placeholder="Confirm your password"
+                      />
+                    </div>
+                    <button type="submit" className="btn-acct" disabled={isLoading}>
+                      {isLoading ? "Creating Account..." : "Create Account"}
+                    </button>
+                    <div className="links">
+                      Already have an account? <Link to="/login">Login here</Link>
+                    </div>
+                  </form>
                 
             </div>
         </div>

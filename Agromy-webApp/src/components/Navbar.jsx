@@ -4,6 +4,7 @@ import {
   Menu,
   X,
   Home,
+  ShoppingBag,
   ShoppingCart,
   HelpCircle,
   MessageSquare,
@@ -49,7 +50,7 @@ const Navbar = () => {
 
   const navItems = user ? [
     { name: 'Dashboard', icon: Home, path: '/dashboard' },
-    { name: 'Store', icon: ShoppingCart, path: '/store' },
+    { name: 'Store', icon: ShoppingBag, path: '/store' },
     { name: 'FAQ', icon: HelpCircle, path: '/faq' },
     { name: 'Request Product', icon: NairaIcon, path: '/request-product' },
     { name: 'Help', icon: MessageSquare, path: '/help' },
@@ -69,7 +70,7 @@ const Navbar = () => {
   return (
     <nav className="navbar" key={authKey}>
       <div className="navbar-brand">
-        <span className="brand-text">Agromy</span>
+        <span className="brand-text"><img src="./img/cb.png" alt="cb" /></span>
       </div>
       
       

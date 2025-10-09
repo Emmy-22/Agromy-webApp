@@ -25,6 +25,14 @@
 .dashboard-table {
   overflow-x: auto;
 }
+.start-shop{
+  font-weight: 600;
+  color: #10B981;
+}
+.start-shop:hover{
+  text-decoration: none;
+  color: #22543d;
+}
 a:hover{
   text-decoration: none;
 }

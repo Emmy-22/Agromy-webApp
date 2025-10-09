@@ -17,6 +17,7 @@ const OtpVerification = () => {
 
   useEffect(() => {
     inputRefs.current[0]?.focus();
+    console.log('📥 OTP state received:', { email, userData });
   }, []);
 
   const handleOtpChange = (index, value) => {
@@ -49,7 +50,19 @@ const OtpVerification = () => {
     try {
       await new Promise(resolve => setTimeout(resolve, 1500)); 
       console.log('OTP verified for:', email, otpCode);
-      login(userData);
+      let finalUserData = userData || {};
+      if (email) {
+        finalUserData.email = email; 
+      }
+      finalUserData.id = Date.now(); 
+
+      console.log('🔐 Calling login with:', finalUserData);
+      login(finalUserData); // Save to auth context
+
+      setIsVerified(true);
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 2000);
 
       setIsVerified(true);
       setTimeout(() => {

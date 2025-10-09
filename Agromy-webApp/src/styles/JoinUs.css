@@ -59,11 +59,20 @@
     line-height: 1.2;
 }
 .body-content{
-    margin-top: 1.5rem;
+    margin: 1.5rem auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #dde2df;
+    justify-content: center;
+    max-width: 500px;
+    gap: 1rem;
 }
-.body-content input{
+.form-group{
     width: 100%;
-    padding: 1.2rem 0.75rem;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 0 0.75rem;
     margin: 0.5rem 0;
     border: none;
     border-radius: 10px;

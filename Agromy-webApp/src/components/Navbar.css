@@ -10,11 +10,12 @@
   z-index: 1000;
 }
 
-.navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #16a34a;
-  font-weight: 900;
+.navbar-brand img {
+  height: 40px;
+  width: 100px;
+  object-fit: cover;
+  
+  
 }
 
 .brand-text {
@@ -44,14 +45,14 @@
 
 .nav-link:hover {
   background-color: #f7fafc;
-  color: #16a34a;
+  color: #10B981;
   text-decoration: none;
 }
 
 .mobile-menu-toggle {
   display: none;
   cursor: pointer;
-  color: #16a34a;
+  color: #10B981;
 }
 
 /* Mobile Styles */

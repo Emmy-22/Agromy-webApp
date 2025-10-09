@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { Edit3, Save, Camera, User } from "react-feather";
+import { Edit3, Save, Camera, User ,LogIn} from "react-feather";
+
 import "../styles/Profiles.css";
 
 const Profile = () => {
-  const { user } = useAuth(); 
+  const { user, login } = useAuth(); 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    name: "Name",
-    role: "Farmer",
-    experience: "8",
-    location: "10 Olujoda Ekiti",
-    specialization: "Crops",
+    fullName: "",
+    email: "",
+    phone: "",
+    address: "", 
+    role: "",
+    experience: "",
+    location: "",
+    specialization: "",
     image:
       "https://api.builder.io/api/v1/image/assets/TEMP/cf04e907fb592bf71b0b492977eac0e1d83d6492?width=620",
   });
@@ -21,17 +25,19 @@ const Profile = () => {
   
   useEffect(() => {
     if (user) {
+      console.log('Profile loading user data:', user);
       setFormData({
-        name: user.name || '', 
+        fullName: user.fullName || '', 
         email: user.email || '',
         phone: user.phone || '',
         address: user.address || '',
-        role: user.role || 'Farmer',
+        role: user.role || '',
         location: user.location || '',
         specialization: user.specialization || '',
         image: user.image || '',
       });
       setAvatar(user.avatar || '');
+      console.log('Profile data loaded:', user);
     }
   }, [user]);
 
@@ -46,6 +52,7 @@ const Profile = () => {
     e.preventDefault();
     
     const updatedUser = { ...user, ...formData, avatar };
+    login(updatedUser);
     
     console.log('Profile updated:', updatedUser);
     alert('Profile updated successfully!');
@@ -71,7 +78,7 @@ const Profile = () => {
   if (!user) {
     return <div className="not-logged-in">
       <h1>Agromy</h1>
-      Please log in to view your profile.</div>;
+      <p>Please log in to view your profile.</p></div>;
   }
   return (
     <div className="profile-container">
@@ -112,7 +119,7 @@ const Profile = () => {
               type="text"
               id="name"
               name="name"
-              value={formData.name}
+              value={formData.fullname}
               onChange={handleChange}
               disabled={!isEditing}
               required
@@ -128,6 +135,7 @@ const Profile = () => {
               value={formData.email}
               onChange={handleChange}
               disabled={!isEditing || true} 
+              placeholder="e.g. bale@mail.com"
               required
             />
           </div>

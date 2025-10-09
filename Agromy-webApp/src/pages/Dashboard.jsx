@@ -65,7 +65,7 @@ const Dashboard = () => {
             ) : (
               <tr>
                 <td colSpan="5" style={{ textAlign: 'center', color: '#718096' }}>
-                  No items yet. <a href="/store">Start shopping</a>
+                  No items yet. <a className='start-shop' href="/store">Start shopping</a>
                 </td>
               </tr>
             )}
