@@ -83,7 +83,7 @@ const JoinUS = () => {
                 
                   <form onSubmit={handleSubmit} className="body-content">
                     <div className="form-group">
-                      <label htmlFor="fullName">Full Name</label>
+                      <h3 htmlFor="fullName">Full Name</h3>
                       <input
                         type="text"
                         id="fullName"
@@ -95,7 +95,7 @@ const JoinUS = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="role">Role</label>
+                      <h3 htmlFor="role">Role</h3>
                       <select
                         id="role"
                         name="role"
@@ -110,7 +110,7 @@ const JoinUS = () => {
                       </select>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="email">Email</label>
+                      <h3 htmlFor="email">Email</h3>
                       <input
                         type="email"
                         id="email"
@@ -122,7 +122,7 @@ const JoinUS = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="password">Password</label>
+                      <h3 htmlFor="password">Password</h3>
                       <input
                         type="password"
                         id="password"
@@ -135,7 +135,7 @@ const JoinUS = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="confirmPassword">Confirm Password</label>
+                      <h3 htmlFor="confirmPassword">Confirm Password</h3>
                       <input
                         type="password"
                         id="confirmPassword"
@@ -150,7 +150,7 @@ const JoinUS = () => {
                       {isLoading ? "Creating Account..." : "Create Account"}
                     </button>
                     <div className="links">
-                      Already have an account? <Link to="/login">Login here</Link>
+                      Already have an account? <Link to="/login" >Login here</Link>
                     </div>
                   </form>
                 
